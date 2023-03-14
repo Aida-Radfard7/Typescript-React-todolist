@@ -1,0 +1,71 @@
+:root{
+  --color-black : #333;
+  --color-white : #fff;
+
+  --border-radius : 0.3rem;
+  --size-bezel: .5rem;
+}
+
+html{
+  height: 100vh;
+}
+
+body{
+  margin: 0;
+  margin-top: 40px;
+  background-image: url(../public/to-do-list.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+#form{
+  width: 60%;
+  height: 85vh;
+  margin: 0 auto;
+  text-align: center;
+  padding-top: 5rem;
+  /* glass */
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.input {
+  position: relative;
+  
+  &__label {
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 0 .5rem;
+    white-space: nowrap;
+    transform: translate(0, 0);
+    transform-origin: 0 0;
+    transition: transform 120ms ease-in;
+    font-weight: bold;
+    line-height: 1.2;
+  }
+  &__field {
+    box-sizing: border-box;
+    width: 60%;
+    border: 3px solid var(--color-black);
+    outline: none;
+    padding: 1rem;
+    font-size: 1rem;
+    color: var(--color-black);
+    background: transparent;
+    border-radius: var(--border-radius);
+    
+    &:focus,
+    &:not(:placeholder-shown) {
+      & + .input__label {
+        transform: translate(0rem, -65%) scale(.8);
+        
+      }
+    }
+  }
+}
