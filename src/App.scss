@@ -1,5 +1,6 @@
 :root{
   --color-black : #333;
+  --color-dark-black : rgb(0, 0, 0);
   --color-white : #fff;
   --color-green : rgb(14, 93, 30);
   --color-dark-green : rgb(16, 78, 29);
@@ -15,18 +16,16 @@ html{
 body{
   margin: 0;
   margin-top: 40px;
-  background-image: url(../public/to-do-list.jpg);
+  background-image: url(../public/images/to-do-list.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
 }
 
-#form{
+.App{
   width: 60%;
-  height: 85vh;
+  height: 93vh;
   margin: 0 auto;
-  text-align: center;
-  padding-top: 5rem;
   /* glass */
   background: rgba(255, 255, 255, 0.03);
   border-radius: 16px;
@@ -34,7 +33,13 @@ body{
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.04);
+  
+}
 
+#form{
+  margin: 0 auto;
+  text-align: center;
+  padding-top: 5rem;
 }
 
 .input {
@@ -88,5 +93,33 @@ body{
 
   &:hover{
     background-color: var(--color-dark-green);
+  }
+}
+
+.list{
+  margin: 2.5rem;
+  &__items{
+    width: 80%;
+    margin: 0 auto;
+    padding: .5rem;
+  }
+
+  &__item{
+    list-style-type: none;
+    background-color: rgb(95, 139, 98);
+    border-radius: var(--border-radius);
+    color: var(--color-dark-black);
+    padding: .6rem;
+    margin: 0 0 1rem 0;
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.5rem;
+  }
+}
+
+.icon{
+  &__edit , &__delete{
+    all : unset;
+    margin: 0 .5rem;
   }
 }

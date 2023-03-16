@@ -1,5 +1,7 @@
 import React , { useState, useRef } from 'react';
 import './App.scss';
+import { DeleteIcon, EditIcon } from './SvgComonent/CommonSVG';
+
 
 function App() {
 
@@ -21,7 +23,6 @@ function App() {
   return (
     <div className="App">
       <form id="form">
-
         <section className='form__header'>
           <label className='input'>
             <input 
@@ -32,16 +33,22 @@ function App() {
           </label>
           <button onClick={() => addNewToDo(input.current?.value)} className='btn-submit' type='button'>Add</button>
         </section>
+      </form>
 
         <section className='list'>
           <ul className='list__items'>
-            {items.map(item => 
-              <li className='list__item'>{item.title}</li>
+            {items.map((item , index) => 
+                <li key={index} className='list__item'>
+                  {item.title}
+                  <span className='icon'>
+                    <button className='icon__edit'><EditIcon /></button>
+                    <button className='icon__delete'><DeleteIcon /></button>
+                  </span>
+                </li>
             )}
           </ul>
         </section>
 
-    </form>
     </div>
   );
 }
