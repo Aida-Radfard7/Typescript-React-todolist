@@ -2,13 +2,17 @@ import React , { useState, useRef } from 'react';
 import './App.scss';
 import { DeleteIcon, EditIcon } from './SvgComonent/CommonSVG';
 
+interface KeyboardEvent<T>{
+  key: string;
+  preventDefault() : void;
+}
+
+type todoType = {
+  title : string,
+  id : string
+}
 
 function App() {
-
-  type todoType = {
-    title : string,
-    id : string
-  }
 
   const [items , setItems] = useState<todoType[]>([])
   const input  = useRef<HTMLInputElement>(null);
@@ -19,6 +23,13 @@ function App() {
     setItems([...items , newItem])
   }
 
+  const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>) : void =>{
+    if(e.key === 'Enter'){
+      e.preventDefault()
+      addNewToDo(input.current?.value)
+    }
+  }
+
 
   return (
     <div className="App">
@@ -26,7 +37,8 @@ function App() {
         <section className='form__header'>
           <label className='input'>
             <input 
-              className='input__field' 
+              className='input__field'
+              onKeyPress={handleKeyPress} 
               type="text"
               ref={input}  />
             <span className='input__label'>add your to do ...</span>
