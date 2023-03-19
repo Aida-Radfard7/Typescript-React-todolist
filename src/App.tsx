@@ -7,20 +7,22 @@ interface KeyboardEvent<T>{
   preventDefault() : void;
 }
 
-type todoType = {
-  title : string,
+type TodoType = {
+  title : string | undefined;
   id : string
 }
 
 function App() {
 
-  const [items , setItems] = useState<todoType[]>([])
-  const input  = useRef<HTMLInputElement>(null);
+  const [items , setItems] = useState<TodoType[]>([])
+  const input = useRef<HTMLInputElement>(null);
 
   const addNewToDo = (newToDo : string | undefined) : void =>{
-    if (newToDo == undefined) return
-    const newItem = {title : newToDo , id : '1'}
-    setItems([...items , newItem])
+    if (input.current?.value === '' || input.current?.value === null) return
+    const newItem : TodoType = {title : newToDo , id : '1'}
+    setItems([...items as TodoType[] , newItem as unknown as TodoType])
+    if(input.current != null) input.current.value = "";
+     
   }
 
   const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>) : void =>{
@@ -29,7 +31,6 @@ function App() {
       addNewToDo(input.current?.value)
     }
   }
-
 
   return (
     <div className="App">
@@ -41,7 +42,7 @@ function App() {
               onKeyPress={handleKeyPress} 
               type="text"
               ref={input}  />
-            <span className='input__label'>add your to do ...</span>
+            <span className='input__label'>add your Task ...</span>
           </label>
           <button onClick={() => addNewToDo(input.current?.value)} className='btn-submit' type='button'>Add</button>
         </section>
@@ -49,7 +50,7 @@ function App() {
 
         <section className='list'>
           <ul className='list__items'>
-            {items.map((item , index) => 
+            {items.map((item , index) =>
                 <li key={index} className='list__item'>
                   {item.title}
                   <span className='icon'>
