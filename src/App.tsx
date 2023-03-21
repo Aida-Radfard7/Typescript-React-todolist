@@ -1,6 +1,8 @@
-import React , { useState, useRef } from 'react';
+import React , { useState, useRef , useId} from 'react';
 import './App.scss';
 import { DeleteIcon, EditIcon } from './SvgComonent/CommonSVG';
+import { v4 as uuidv4 } from 'uuid';
+import Swal from 'sweetalert2'
 
 interface KeyboardEvent<T>{
   key: string;
@@ -17,12 +19,13 @@ function App() {
   const [items , setItems] = useState<TodoType[]>([])
   const input = useRef<HTMLInputElement>(null);
 
+
   const addNewToDo = (newToDo : string | undefined) : void =>{
     if (input.current?.value === '' || input.current?.value === null) return
-    const newItem : TodoType = {title : newToDo , id : '1'}
-    setItems([...items as TodoType[] , newItem as unknown as TodoType])
+    const newItem : TodoType = {title : newToDo , id : uuidv4() }
+    // setItems([...items as TodoType[] , newItem as unknown as TodoType])
+    setItems([...items, newItem])
     if(input.current != null) input.current.value = "";
-     
   }
 
   const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>) : void =>{
@@ -30,6 +33,21 @@ function App() {
       e.preventDefault()
       addNewToDo(input.current?.value)
     }
+  }
+
+  const deleteTask = ( id : string) : void =>{
+    Swal.fire({
+      title: 'Are you sure you want to delete it?',
+      showCancelButton: true,
+      confirmButtonColor: 'rgb(14, 93, 30)',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'delete'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const extant = items.filter(item => item.id != id)
+        setItems([...extant])
+      }
+    })
   }
 
   return (
@@ -55,7 +73,7 @@ function App() {
                   {item.title}
                   <span className='icon'>
                     <button className='icon__edit'><EditIcon /></button>
-                    <button className='icon__delete'><DeleteIcon /></button>
+                    <button className='icon__delete' onClick={() => deleteTask(item.id)}><DeleteIcon /></button>
                   </span>
                 </li>
             )}

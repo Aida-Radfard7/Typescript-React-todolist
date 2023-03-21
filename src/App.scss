@@ -121,5 +121,6 @@ body{
   &__edit , &__delete{
     all : unset;
     margin: 0 .5rem;
+    cursor: pointer;
   }
 }
