@@ -1,9 +1,8 @@
-import React , { useState, useRef , useId} from 'react';
+import React , { useState, useRef} from 'react';
 import './App.scss';
 import { DeleteIcon, EditIcon } from './SvgComonent/CommonSVG';
 import { v4 as uuidv4 } from 'uuid';
 import Swal from 'sweetalert2'
-import { Value } from 'sass';
 
 interface KeyboardEvent<T>{
   key: string;
@@ -45,7 +44,7 @@ function App() {
       confirmButtonText: 'delete'
     }).then((result) => {
       if (result.isConfirmed) {
-        const extant = items.filter(item => item.id != id)
+        const extant = items.filter(item => item.id !== id)
         setItems([...extant])
       }
     })
