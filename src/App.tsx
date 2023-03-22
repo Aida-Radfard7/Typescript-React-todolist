@@ -3,6 +3,7 @@ import './App.scss';
 import { DeleteIcon, EditIcon } from './SvgComonent/CommonSVG';
 import { v4 as uuidv4 } from 'uuid';
 import Swal from 'sweetalert2'
+import { Value } from 'sass';
 
 interface KeyboardEvent<T>{
   key: string;
@@ -50,6 +51,23 @@ function App() {
     })
   }
 
+  const editTask = async ( id : string) =>{
+    const { value: newTitle } = await Swal.fire({
+      input: 'text',
+      confirmButtonColor: 'rgb(14, 93, 30)',
+      inputPlaceholder: 'Type your To Do here...',
+      showCancelButton: true
+    })
+    if(newTitle){
+      const index = items.findIndex(object => {
+        return object.id === id
+      })
+      const newItem = {title : newTitle , id : id}
+      items.splice(index , 1 , newItem)
+      setItems([...items])
+    }
+  }
+
   return (
     <div className="App">
       <form id="form">
@@ -72,7 +90,7 @@ function App() {
                 <li key={index} className='list__item'>
                   {item.title}
                   <span className='icon'>
-                    <button className='icon__edit'><EditIcon /></button>
+                    <button className='icon__edit' onClick={() => editTask(item.id)}><EditIcon /></button>
                     <button className='icon__delete' onClick={() => deleteTask(item.id)}><DeleteIcon /></button>
                   </span>
                 </li>
